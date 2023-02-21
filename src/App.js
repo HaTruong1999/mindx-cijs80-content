@@ -1,8 +1,12 @@
 import './App.css';
-import Product from './components/Product';
 import Header from './components/Header';
 import ListProduct from './components/ListProduct';
 import { useEffect, useState } from 'react';
+import BackToTop from './components/BackToTop';
+import ProductForm from './components/ProductForm';
+const TITLE_ALL = 'Danh sách tất cả sản phẩm';
+const TITLE_MEN = 'Danh sách tất cả sản phẩm nam';
+const TITLE_WOMEN = 'Danh sách tất cả sản phẩm nữ';
 
 function App() {
   //Cart
@@ -12,10 +16,11 @@ function App() {
   //Get Data
   useEffect(() => {
     fetch('https://63ac467634c46cd7ae7cce54.mockapi.io/api/mindx/products')
-        .then(res => res.json())
-        .then(products => {
-            setProducts(products);
-        })
+      .then(res => res.json())
+      .then(products => {
+          console.log('result: ',products);
+          setProducts(products);
+      })
   },[])
 
   const handleAddToCart = (product) => {
@@ -28,74 +33,36 @@ function App() {
     })
   }
 	
-  //form
-  const [title, setTitle] = useState("")
-  const [price, setPrice] = useState("")
-  const [type, setType] = useState("MEN")
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-
-		const tempProduct = {
+  const handleAddProduct = (data) => {
+    const tempProduct = {
       id: products.length,
-      productImg: type === 'MEN' ? './images/thunNam.jpeg' : './images/nuTayNgan.jpeg',
-      productTitle: title,
-      productPrice: price,
-      type: type,
+      productImg: data.type === 'MEN' ? './images/thunNam.jpeg' : './images/nuTayNgan.jpeg',
+      productTitle: data.productTitle,
+      productPrice: data.productPrice,
+      type: data.type,
     }
 
-    setProducts(prev => [...prev, tempProduct])
-    alert('Them san pham thanh cong')
-	}
-
-	const handleInputTitleChange = (event) => {
-		setTitle(event.target.value);
-	}
-
-  const handleInputPriceChange = (event) => {
-		setPrice(event.target.value);
-	}
-
-  const handleSelectTypeChange = (event) => {
-    setType(event.target.value);
-	}
-
+    setProducts(prev => [...prev, tempProduct]);
+    alert('Thêm sản phẩm vào danh sách sản phẩm thành công!');
+  }
+  
   //example click handel
   const [typeProduct, setTypeProduct] = useState('ALL');
 
   const handelFilterProduct = (value) => {
     setTypeProduct(value);
   }
+
+  const productsToShow = typeProduct === 'ALL' ? products 
+                        : typeProduct === 'MEN' ? products.filter(p => p.type === 'MEN')
+                        : products.filter(p => p.type === 'WOMEN');
+  const title = typeProduct === 'ALL' ? TITLE_ALL : typeProduct === 'MEN' ? TITLE_MEN : TITLE_WOMEN;
+  
+
   return (
     <div className="App">
       <Header />   
-      <form onSubmit={handleSubmit}>
-        <div className='product-form'>
-          <h3 style={{textAlign: 'center'}}>Thông tin sản phẩm</h3>
-
-          <div>
-            <label>Tên sản phẩm: </label>
-            <input placeholder='Nhập tên sản phẩm' type="text" value={title} onChange={handleInputTitleChange} />
-          </div>
-
-          <div>
-            <label>Giá sản phẩm: </label>
-            <input type="text" placeholder='Nhập giá sản phẩm'  value={price} onChange={handleInputPriceChange} />
-          </div>
-
-          <div>
-            <label>Loại sản phẩm: </label>
-            <div className='type-select'>
-              <select style={{width: 75}} value={type} onChange={handleSelectTypeChange}>
-                <option value="MEN">Nam</option>
-                <option value="WOMEN">Nữ</option>
-              </select>
-            </div>
-            
-          </div>
-          <button type="submit">Thêm sản phẩm</button>
-        </div>
-		  </form>
+      <ProductForm handleAddProduct={handleAddProduct}/>
 
       <div className='tab'>
         <div>
@@ -105,35 +72,9 @@ function App() {
         </div>
       </div>   
       
-      { products.length > 0 &&
-        typeProduct === 'MEN' ? 
-        (<ListProduct handleAddToCart={handleAddToCart} products={products.filter(product => product.type ==='MEN')} title={'Danh sách sản phẩm nam'}/>)
-        : typeProduct === 'WOMEN' ? 
-        (<ListProduct handleAddToCart={handleAddToCart} products={products.filter(product => product.type ==='WOMEN')} title={'Danh sách sản phẩm nữ'}/>)
-        : (<ListProduct handleAddToCart={handleAddToCart} products={products} title={'Danh sách tất cả sản phẩm'}/>)
-      }
-      
-      <div>
-        <h3 style={{textAlign: 'center'}}>Danh sách giỏ hàng</h3>
-        <div className='product-container'>
-          {
-            listCart.length > 0 && listCart.map((product) => {
-              return (
-                <Product
-                  key={product.id}
-                  productImg={product.productImg}
-                  productTitle={product.productTitle}
-                  productPrice={product.productPrice}
-                  type='CART'
-                  onSubmit={() => handleRemoveCart(product)}
-                />
-              )
-            })
-          }
-        </div>
-      </div>
-
-      <button className='btn-backToTop'>^</button>
+      <ListProduct typeRender={'PRODUCT'} handleSubmit={handleAddToCart} products={productsToShow} title={title}/>
+      <ListProduct typeRender={'CART'} handleSubmit={handleRemoveCart} products={listCart} title={'Danh sách giỏ hàng'}/>
+      <BackToTop></BackToTop>
     </div>
   );
 }

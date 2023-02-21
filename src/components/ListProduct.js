@@ -1,6 +1,6 @@
 import Product from './Product'
 
-function ListProduct({products, title, handleAddToCart}) {
+function ListProduct({ products, title, handleSubmit, typeRender }) {
     return ( 
         <>
             <h3 style={{textAlign: 'center'}}>{title}</h3>
@@ -13,8 +13,8 @@ function ListProduct({products, title, handleAddToCart}) {
                         productImg={product.productImg}
                         productTitle={product.productTitle}
                         productPrice={product.productPrice}
-                        type='PRODUCT'
-                        onSubmit={() => handleAddToCart(product)}
+                        type={typeRender}
+                        onSubmit={() => handleSubmit(product)}
                     />
                     )
                 })
