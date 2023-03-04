@@ -14,6 +14,9 @@ export default function Header() {
                     <NavLink to="/admin" className={activeClass}>Admin</NavLink>
                 </li>
                 <li>
+                    <NavLink to="/cart" className={activeClass}>Cart</NavLink>
+                </li>
+                <li>
                     <NavLink to="/home" className={activeClass}>Home</NavLink>
                 </li>
             </ul>
