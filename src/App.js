@@ -1,10 +1,10 @@
 import './App.css';
 import Header from './components/Header';
 import BackToTop from './components/BackToTop';
-import ProductForm from './components/ProductForm';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
-import {Routes, Route} from 'react-router-dom';
+import Admin from './pages/Admin/Admin';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -46,12 +46,11 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header cartNumber={listCart.length} />
       <Routes>
-        <Route path="/home" element={<Home products={products} handleAddToCart={handleAddToCart} />} />
+        <Route path="*" element={<Home products={products} handleAddToCart={handleAddToCart} />} />
         <Route path="/cart" element={<Cart listCart={listCart} handleRemoveCart={handleRemoveCart} />} />
-				<Route path="/admin" element={<ProductForm handleAddProduct={handleAddProduct}/>} />
-        <Route path="*" element={<h4>Page not found</h4>} />
+				<Route path="/admin" element={<Admin products={products} handleAddProduct={handleAddProduct}/>} />
       </Routes>   
       
       <BackToTop></BackToTop>
