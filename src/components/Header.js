@@ -1,6 +1,10 @@
 import React from "react";
 import Badge from 'react-bootstrap/Badge';
 import {NavLink} from 'react-router-dom';
+// import { Avatar, Badge } from 'antd';
+// import {
+//     ShoppingCartOutlined
+//   } from '@ant-design/icons';
 
 const activeClass = (params) => {
 	return params.isActive ? "active-item" : "";
@@ -15,6 +19,13 @@ export default function Header({ cartNumber }) {
                     <NavLink to="/admin" className={activeClass}>Admin</NavLink>
                 </li>
                 <li>
+                    {/* <NavLink to="/cart" className={activeClass}>
+                        <Badge count={cartNumber}>
+                            <ShoppingCartOutlined />
+                        </Badge>
+                    </NavLink> */}
+                    
+                    
                     <NavLink to="/cart" className={activeClass}>Cart
                         <Badge  style={{marginLeft: 5}} bg="secondary">{cartNumber}</Badge>
                     </NavLink>

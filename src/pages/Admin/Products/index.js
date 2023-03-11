@@ -22,12 +22,17 @@ function ManageProducts({products}) {
                                     <td>{index + 1}</td>
                                     <img style={{height: 50}} src={product.productImg} alt=''></img>
                                     <td>{product.productTitle}</td>
+                                    <td>{product.type === 'MEN' ? 'Nam' : 'Nữ'}</td>
                                     <td>{product.productPrice}</td>
-                                    <td>{product.productType === 'MEN' ? 'Nam' : 'Nữ'}</td>
                                 </tr>   
                             )
                         })
+                        
                     }
+                    <tr>
+                        <td colSpan={4}>Tổng tiền</td>
+                        <td>1.450.000</td>
+                    </tr>
                     
                 </tbody>
             </Table>
