@@ -4,6 +4,7 @@ import BackToTop from './components/BackToTop';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Admin from './pages/Admin/Admin';
+import ProductDetail from './pages/ProductDetail';
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -50,6 +51,7 @@ function App() {
       <Routes>
         <Route path="*" element={<Home products={products} handleAddToCart={handleAddToCart} />} />
         <Route path="/cart" element={<Cart listCart={listCart} handleRemoveCart={handleRemoveCart} />} />
+        <Route path="/cart/:productId" element={<ProductDetail />} />
 				<Route path="/admin" element={<Admin products={products} handleAddProduct={handleAddProduct}/>} />
       </Routes>   
       
