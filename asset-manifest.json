@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/HaTruong1999/mindx-cijs80-content/static/css/main.2e3c588f.css",
+    "main.js": "/HaTruong1999/mindx-cijs80-content/static/js/main.e12ca431.js",
+    "static/js/787.00311911.chunk.js": "/HaTruong1999/mindx-cijs80-content/static/js/787.00311911.chunk.js",
+    "index.html": "/HaTruong1999/mindx-cijs80-content/index.html",
+    "main.2e3c588f.css.map": "/HaTruong1999/mindx-cijs80-content/static/css/main.2e3c588f.css.map",
+    "main.e12ca431.js.map": "/HaTruong1999/mindx-cijs80-content/static/js/main.e12ca431.js.map",
+    "787.00311911.chunk.js.map": "/HaTruong1999/mindx-cijs80-content/static/js/787.00311911.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2e3c588f.css",
+    "static/js/main.e12ca431.js"
+  ]
+}
